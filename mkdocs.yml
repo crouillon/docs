@@ -18,7 +18,7 @@ pages:
     - 'Cookbooks':
         - 'Create bundle administration': 'developer-documentation/cookbooks/create_bundle_administration.md'
         - 'Create new commands': 'developer-documentation/cookbooks/create_new_commands.md'
-        - 'Create new templating helpers': 'developer-documentation/cookbooks/create_new_templating_helpers.md'
+        - 'Create new templating helpers': 'developer-documentation/cookbooks/create-new-templating-helpers.md'
         - 'Customize error pages': 'developer-documentation/cookbooks/customize_error_pages.md'
         - 'Ease debugging with the Web Profiler': 'developer-documentation/cookbooks/ease_debugging_with_profiler.md'
         - 'Use Swift Mailer in BackBee': 'developer-documentation/cookbooks/use_swift_mailer_in_backbee.md'
