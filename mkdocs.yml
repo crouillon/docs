@@ -9,13 +9,13 @@ theme_dir: 'blogbee'
 
 pages:
     - 'Introduction': 'index.md'
-    - 'Developer documentation':
+    - 'Getting started':
         - 'Requirements': 'developer-documentation/requirements.md'
         - 'Installation': 'developer-documentation/installation.md'
         - 'Architecture': 'developer-documentation/architecture.md'
         - 'Configuration': 'developer-documentation/configuration.md'
         - 'Project Architecture': 'developer-documentation/project_architecture.md'
-    - 'Cookbooks':
+    - 'Cookbook':
         - 'Create bundle administration': 'developer-documentation/cookbooks/create_bundle_administration.md'
         - 'Create new commands': 'developer-documentation/cookbooks/create_new_commands.md'
         - 'Create new templating helpers': 'developer-documentation/cookbooks/create-new-templating-helpers.md'
@@ -34,6 +34,8 @@ pages:
         - 'Routing': 'developer-documentation/components/routing.md'
         - 'Security': 'developer-documentation/components/security.md'
         - 'Translation': 'developer-documentation/components/translation.md'
+    - 'Reference':
+        - 'Events': 'developer-documentation/references/events.md'
 
 copyright: Copyright &copy; 2014-2015, <a href="http://www.backbee.com">BackBee project</a>.
 google_analytics: ['UA-3459992-27', 'docs.backbee.com']
