@@ -2,49 +2,37 @@
 
 Make sure you have basic knowledge of PHP5, Apache or Nginx and MySQL to install BackBee.
 
-## Third-party software
+## Download and extract
 
-You need to check that your computer has an appropriate working environment for web development. You need at least a web server (Apache, for instance), a database engine (MySQL, MariaDB), and **PHP 5.4**.
+This documentation showcases 2 different ways to launch the install.
 
-You need to install [git](http://git-scm.com/) and [Composer](https://getcomposer.org/), the dependency manager for PHP.
+### Install from ZIP archive
 
-If your are on Linux/Unix based (like ubuntu or Mac OS X), follow this [link](https://getcomposer.org/doc/00-intro.md#globally) for installation. Composer is also available on [Windows system](https://getcomposer.org/doc/00-intro.md#installation-windows).
+Download the [zip archive](http://backbee.com/backbee/backbee-latest.zip) and extract its contents into your webserver at a convenient location - web root folder or subfolder - for example `/backbee`. 
 
-In a command line interface, check if `composer` is correctly installed:
+Then open your browser and navigate to the URL pointing to that specific folder. 
 
-![composer on cmder](http://i.imgur.com/xDZi6Sc.png "composer")
+You will be automatically redirected to the install procedure described in the **Web Installer** section. 
 
-Also, check your PHP version which should be 5.4 or more.
+> Need more details on those first steps ? We created a [video tutorial](https://www.youtube.com/watch?v=Xy6lFTmGSaA) specifically for WAMP users. 
 
-![PHP on cmder](http://i.imgur.com/DkgQJz2.png "PHP")
+### Install with command line (recommended)
 
-
-Set up a domain name in your operating system.
-On Unix/Linux based OS, you can add it into `/etc/hosts` file. In our case, we want to add **blogbee.dev**:
-
-    127.0.0.1   blogbee.dev
-
-You are ready to start the installation process.
-
-## Web Installer
-
-First, you have to get the project by using Composer. We highly recommend you to use it. You can also download the zip that embed all dependencies needed by BackBee CMS.
-
-### Install with Composer (recommended)
+First, you have to get the project by using Composer.
 
 Open a command line interface and get BackBee Standard Edition:
 
-    $ composer create-project "backbee/backbee-standard" /path/to/your/folder "~1.1" --no-interaction
-
-### Install with zip archive
-
-Download the [zip archive](http://backbee.com/backbee/backbee-latest.zip) and extract its contents into `/path/to/your/folder`. When it is done you are ready for the next step.
-
-### Launch PHP server
+    $ composer create-project "backbee/backbee-cms" /path/to/your/folder "~1.2" --no-interaction
 
 From the `public` directory, launch the builtin server of PHP:
 
-    $ cd /path/to/your/folder/public && php -S blogbee.dev:8000
+    $ cd /path/to/your/folder/public && php -S localhost:8000
+
+Then browse to the URL [`http://localhost:8000/install.php`](http://localhost:8000/install.php) and follow the instructions detailed in the next section.
+
+> Detailled steps for command line users are explained in this [short video](https://www.youtube.com/watch?v=Fe6Jg6s_Quw).
+
+## Web installer
 
 ### Step 1 - Requirements checks
 
