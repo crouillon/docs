@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="http://www.backbee.com/developer-documentation/configuration/">
+        <link rel="canonical" href="http://developers.backbee.com/developer-documentation/configuration/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
 
         <title>Configuration - The BackBee documentation</title>
@@ -64,7 +64,7 @@
             
             
                 <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developer documentation <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -93,7 +93,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbooks <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbook <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -105,7 +105,7 @@
                         </li>
                     
                         <li >
-                            <a href="../cookbooks/create_new_templating_helpers/">Create new templating helpers</a>
+                            <a href="../cookbooks/create-new-templating-helpers/">Create new templating helpers</a>
                         </li>
                     
                         <li >
@@ -177,6 +177,23 @@
                 </li>
             
             
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../references/events/">Events</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../references/dependency-injection-container/">Dependency Injection Container</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
             </ul>
 
             <!-- Search, Navigation and Repo links -->
@@ -210,9 +227,15 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#developer-documentation">Developer documentation</a></li>
+        <li class="main active"><a href="#configuration">Configuration</a></li>
         
-            <li><a href="#configuration">Configuration</a></li>
+            <li><a href="#bootstrap-configuration-bootstrapyml">Bootstrap configuration (bootstrap.yml)</a></li>
+        
+            <li><a href="#bundles-configuration-bundlesyml">Bundles configuration (bundles.yml)</a></li>
+        
+            <li><a href="#database-configuration-doctrineyml">Database configuration (doctrine.yml)</a></li>
+        
+            <li><a href="#security-configuration-securityyml">Security Configuration (security.yml)</a></li>
         
     
     </ul>
@@ -220,87 +243,80 @@
             <div class="col-md-9" role="main">
                 
 
-<h1 id="developer-documentation">Developer documentation</h1>
-<h2 id="configuration">Configuration</h2>
-<p>BackBee CMS is powerful and highly configurable.
-In this section, all the available configurations are broken down by the key (e.g. doctrine) that defines each possible section of your application configuration.</p>
-<h3 id="bootstrap-configuration-bootstrapyml">Bootstrap configuration (bootstrap.yml)</h3>
-<p>This configuration file has only two functions:</p>
+<h1 id="configuration">Configuration</h1>
+<p>BackBee CMS is highly customizable. In this section, all the available configurations are broken down by the key (e.g. doctrine) that defines each possible section of your application configuration.</p>
+<h2 id="bootstrap-configuration-bootstrapyml">Bootstrap configuration (bootstrap.yml)</h2>
+<p>This file is your application entry point so it <strong>must exist</strong> and be located in <code>repository/Config/</code> folder. Let's explore together every parameter of this file:</p>
 <ul>
-<li><code>debug</code>: set the developer mode: if <strong>true</strong>, the container is generated at each request.</li>
-<li><code>container</code>: set the container configuration which have 2 parameters<ul>
-<li><code>dump_directory</code>: set the location of the generated container.</li>
-<li><code>autogenerate</code>: if true, the container is generated at each request.</li>
+<li><code>debug</code>: (type: bool) enables debug. If <strong>true</strong>, the container is generated on each request and the web profiler is also visible.</li>
+<li><code>container</code>: (type: array)<ul>
+<li><code>dump_directory</code>: (type: string) define the location of the generated container file.</li>
+<li><code>autogenerate</code>: (type: bool) define the default value for container and cache autogeneration parameters (respectively <code>container.autogenerate</code> and <code>bbapp.cache.autogenerate</code>)</li>
 </ul>
 </li>
 </ul>
-<p>The <code>autogenerate</code> option is useful when you want to force the generation of the container in "production". Don't forget this option has a performance cost.</p>
-<h3 id="bundles-configuration-bundlesyml">Bundles configuration (bundles.yml)</h3>
-<p>To activate a bundle, you need to register it in this file:</p>
-<pre><code class="yaml"># /repository/Config/bundles.yml
+<p>Note that the parameter<code>container.autogenerate</code> has no impact on the container regeneration. To do so,  you have to delete manually the dumped file. The other way to regenerate the container is to update the <code>bootstrap.yml</code>. Indeed, the last modification date property of <code>bootstrap.yml</code> is used to compute container dump filename.</p>
+<h2 id="bundles-configuration-bundlesyml">Bundles configuration (bundles.yml)</h2>
+<p>To activate a bundle, you need to add it in the <code>repository/Config/bundles.yml</code> file:</p>
+<pre><code class="yaml"># repository/Config/bundles.yml
 demo: BackBee\Bundle\DemoBundle\Demo
 toolbar: BackBee\Bundle\ToolbarBundle\Toolbar
-
 </code></pre>
 
-<h3 id="database-configuration-doctrineyml">Database configuration (doctrine.yml)</h3>
-<p>We provide a demo sample configuration. You can see all available parameters into the related <a href="http://symfony.com/doc/current/reference/configuration/doctrine.html">Doctrine configuration of Symfony</a>:</p>
+<p>The bundle name (e.g. <code>demo</code> or <code>toolbar</code>) is important because you will need it to retrieve your bundle:</p>
+<pre><code class="php">&lt;?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$app = new BackBee\BBApplication();
+
+$app-&gt;getBundle('toolbar'); // returns the instance of BackBee\Bundle\ToolbarBundle\Toolbar
+</code></pre>
+
+<p>You can learn more about bundle configuration on <a href="../../developer-documentation/components/bundle/">its documentation</a>.</p>
+<h2 id="database-configuration-doctrineyml">Database configuration (doctrine.yml)</h2>
+<p>BackBee relies on Doctrine 2 ORM to handle its interactions with the database. So you have to tell Doctrine how to connect to your database by adding the <code>repository/Config/doctrine.yml</code> file (you can use <code>repository/Config/doctrine.yml.dist</code> to help you to write your own <code>doctrine.yml</code>).</p>
 <pre><code class="yaml"># /repository/Config/doctrine.yml
 dbal:
-    driver: pdo_mysql # [mysql|pgsql|sqlite]
+    driver: pdo_mysql
     host: localhost
     port: 3306
-    dbname: backbee
+    dbname: backbee_standard
     user: root
-    password: password
+    password: ~
     charset: utf8
     collation: utf8_general_ci
-    defaultTableOptions: { collate: utf8_general_ci, engine: InnoDB, charset: utf8 }
-orm:
-    auto_mapping: true
-    metadata_cache_driver: apc
-    query_cache_driver:
-        type: service
-        id: my_doctrine_common_cache_service # must be a service or a FQCN
-    result_cache_driver:
-        type: memcache
-        host: localhost
-        port: 11211
-        instance_class: Memcache
-
+    defaultTableOptions:
+        collate: utf8_general_ci
+        engine: InnoDB
+        charset: utf8
+    orm:
+        metadata_cache_driver: # see repository/Config/services.yml.dist to enable cache of class metadata
+            type: service
+            id: @doctrine.metadata.cache.driver
 </code></pre>
 
-<h3 id="seo-configuration-metadatayml">SEO Configuration (metadata.yml)</h3>
-<p>This is where you set up the HTML meta headers you want to configure for each page of BackBee:</p>
-<pre><code class="yaml"># /repository/Config/metadata.yml
-keywords:
-    name: 'keywords'
-    content:
-        default: 'cms, content manager'
-description:
-    name: 'description'
-    content:
-        default: &quot;backbee demo website&quot;
-    lang: 'en'
-robots:
-    name: 'robots'
-    content:
-        default: ''
-        select: ['', 'noindex', 'nofollow', 'noindex, nofollow']
-
-</code></pre>
-
-<p>This configuration has a real impact on the toolbar, see the generated SEO form in Page context mode:</p>
-<p><img alt="SEO form option of BackBee page" src="http://i.imgur.com/hpUmrob.png" /></p>
-<h3 id="security-configuration-securityyml">Security Configuration (security.yml)</h3>
-<p>You can set up firewalls and sudoers inside this file. A sudoer is a super administrator:</p>
-<pre><code class="yaml"># /repository/Config/security.yml
+<p>Although BackBee supports SQLite, we highly recommend you to use exclusively the MySQL driver. The SQLite one is used to run tests.</p>
+<h2 id="security-configuration-securityyml">Security Configuration (security.yml)</h2>
+<p>You can set up firewalls and sudoers inside this file. A firewall defines secured area while a sudoer is a super administrator which means that he has every right on any secured action. When you install BackBee via the Standard Edition, the first user you register during the installation process will be your first sudoer.</p>
+<pre><code class="yaml"># repository/Config/security.yml
 firewalls:
     firewall_name: { pattern: ^/, anonymous: null }
 sudoers:
-    username: userId
-
+    admins: 1
 </code></pre>
+
+<p>See below how you can the user <code>foobar</code> (id = <code>8000</code>) as sudoer:</p>
+<pre><code class="yaml"># repository/Config/security.yml
+firewalls:
+    firewall_name: { pattern: ^/, anonymous: null }
+sudoers:
+    admins: 1
+    foobar: 8000
+</code></pre>
+
+<p>Note that this configuration file does not create new user for you. The user <code>foobar</code> must exist in database and the identifier <code>8000</code> must be associated to <code>foobar</code>.</p>
+<p>You can learn more about the security component by accessing to <a href="../../developer-documentation/components/security/">its dedicated documentation</a>. As BackBee use Symfony's security component, you can also get more about it on <a href="http://symfony.com/doc/current/book/security.html">its official documentation</a>.</p>
                 <hr />
                 <div class="contribution-message">
     <h2>Is something missing?</h2>

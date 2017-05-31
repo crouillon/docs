@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="http://www.backbee.com/developer-documentation/components/event_listener/">
+        <link rel="canonical" href="http://developers.backbee.com/developer-documentation/components/event_listener/">
         <link rel="shortcut icon" href="../../../img/favicon.ico">
 
         <title>Event Listener - The BackBee documentation</title>
@@ -64,7 +64,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developer documentation <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -93,7 +93,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbooks <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbook <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -105,7 +105,7 @@
                         </li>
                     
                         <li >
-                            <a href="../../cookbooks/create_new_templating_helpers/">Create new templating helpers</a>
+                            <a href="../../cookbooks/create-new-templating-helpers/">Create new templating helpers</a>
                         </li>
                     
                         <li >
@@ -171,6 +171,23 @@
                     
                         <li >
                             <a href="../translation/">Translation</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../references/events/">Events</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../references/dependency-injection-container/">Dependency Injection Container</a>
                         </li>
                     
                     </ul>
@@ -283,7 +300,9 @@ is a class path and the second is a method. The last parameter is the priority o
     ?&gt;
 </code></pre>
 
+<blockquote>
 <p>Notice that the event object has access to the <code>application</code> <em>via</em> the <code>EventDispacher</code> and that the <code>sayHello</code> is a <em>static</em> method.</p>
+</blockquote>
 <h2 id="event-dispatcher">Event Dispatcher</h2>
 <p><code>Namespace: BackBee\Event\EventListener</code></p>
 <p>Events are <em>dispatched</em> or <em>triggered</em> by the <code>EventDispatcher</code> by using the method <code>triggerEvent</code>. The sample bellow shows how to listen to an event.</p>
@@ -295,7 +314,7 @@ is a class path and the second is a method. The last parameter is the priority o
 <p>When the <em>loading.event</em> is dispatched by the <code>EventDispatcher</code>, all the registered listeners will be executed. In our example,
 the static <code>sayHello</code> method of the <code>Backbee/Event/Listener/HelloListener</code> will be called.</p>
 <h2 id="events-from-class-content-component">Events from Class Content Component</h2>
-<p>One of the main purposes of <code>Backbee</code> is to render contents. As we have seen, 
+<p>One of the main purposes of <code>Backbee</code> is to render contents. As we have seen,
 content is defined in a <code>.yml</code> file. Content creation and content rendering goes
 through many phases that <code>Backbee</code> exposes with events. For instance, an event is triggered
 when a content is created, before and after a content has been saved, when the rendering process starts, while the content is been rendered, after the renderer process and so on. These events

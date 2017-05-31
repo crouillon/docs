@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="http://www.backbee.com/developer-documentation/components/classcontent/">
+        <link rel="canonical" href="http://developers.backbee.com/developer-documentation/components/classcontent/">
         <link rel="shortcut icon" href="../../../img/favicon.ico">
 
         <title>ClassContent - The BackBee documentation</title>
@@ -64,7 +64,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developer documentation <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -93,7 +93,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbooks <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbook <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -105,7 +105,7 @@
                         </li>
                     
                         <li >
-                            <a href="../../cookbooks/create_new_templating_helpers/">Create new templating helpers</a>
+                            <a href="../../cookbooks/create-new-templating-helpers/">Create new templating helpers</a>
                         </li>
                     
                         <li >
@@ -177,6 +177,23 @@
                 </li>
             
             
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../references/events/">Events</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../references/dependency-injection-container/">Dependency Injection Container</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
             </ul>
 
             <!-- Search, Navigation and Repo links -->
@@ -213,6 +230,10 @@
         <li class="main active"><a href="#components">Components</a></li>
         
             <li><a href="#the-classcontent-component">The ClassContent Component</a></li>
+        
+            <li><a href="#properties-reference">Properties reference</a></li>
+        
+            <li><a href="#parameters-reference">Parameters reference</a></li>
         
     
     </ul>
@@ -431,12 +452,21 @@ An Autoblock is a fully automated Content, its collection isn't contributable an
 <p>The second advantage concerns rendering and listeners, BackBee will run through the parent classes to find templates and listener.</p>
 <h4 id="listen-a-classcontent">Listen a ClassContent</h4>
 <p>Add an event listener to a class content is pretty easy and you will find more information in the <a href="../../../developper-documentation/components/event_listener/">Event Listener component</a> section.</p>
-<p>To summarize each ClassContent has 5 attached events:
-- prerender
-- onrender
-- postrender
-- preflush
-- onflush</p>
+<p>To summarize each ClassContent has 4 attached events:
+- <code>classcontent.include</code>: on the first instantiation of the class content,
+- <code>classcontent.prerender</code>: before the content is rendered,
+- <code>classcontent.render</code>: during the content is rendered,
+- <code>classcontent.postrender</code>: after the content is rendered.</p>
+<p>Plus all of the events dispatched by Doctrine:
+- <code>classcontent.preflush</code>: before the content entity is flushed,
+- <code>classcontent.onflush</code>: during the content entity is flushed,
+- <code>classcontent.postflush</code>: after tthe content entity is flushed,
+- <code>classcontent.postload</code>: after the content entity was loaded,
+- <code>classcontent.preremove</code>: before the content entity is removed,
+- <code>classcontent.postremove</code>: after the content entity is removed,
+- <code>classcontent.prepersist</code>: before a new content entity is inserted,
+- <code>classcontent.preupdate</code>: before a content entity is updated,
+- <code>classcontent.postupdate</code>: after a content entity is updated.</p>
 <h4 id="add-a-trait-to-a-classcontent">Add a Trait  to a ClassContent</h4>
 <p>Trait lets go add behaviors to a ClassContent. By default BackBee doesn't provide trait, but like Autoblocks, some traits are available in the standard edition. If you don't know what is a trait, check the official <a href="http://php.net/manual/en/language.oop5.traits.php">PHP documentation</a>.</p>
 <h3 id="classcontent-parameters">ClassContent Parameters</h3>
@@ -546,7 +576,196 @@ $param = $content-&gt;getParamValue('mytext')
 // That returns a new value set  string 'foo' (length=3)
 </code></pre>
 
-<h3 id="parameters-reference">Parameters reference</h3>
+<h2 id="properties-reference">Properties reference</h2>
+<ul>
+<li>name</li>
+<li>description</li>
+<li>category</li>
+<li>indexation</li>
+<li>labelized-by</li>
+<li>iconized-by</li>
+</ul>
+<hr />
+<h3 id="name">name</h3>
+<p>The name of the content</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+<th>Mandatory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong></td>
+<td>String</td>
+<td>The name of the content</td>
+<td>Empty string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>:</p>
+<pre><code class="yaml">properties:
+    name: Article
+</code></pre>
+
+<pre><code class="php">&lt;?php
+$name = $content-&gt;getProperty('name'); // &quot;Article&quot;
+</code></pre>
+
+<hr />
+<h3 id="description">description</h3>
+<p>The description of the content</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+<th>Mandatory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>description</strong></td>
+<td>String</td>
+<td>The description of the content</td>
+<td>Empty string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>:</p>
+<pre><code class="yaml">properties:
+    description: &quot;An article contains a title, an author, an abstract, a primary image and a body&quot;
+</code></pre>
+
+<pre><code class="php">&lt;?php
+$name = $content-&gt;getProperty('description'); // &quot;An article contains a title, an author, an abstract, a primary image and a body&quot;
+</code></pre>
+
+<hr />
+<h3 id="category">category</h3>
+<p>Used to categorize the content.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+<th>Mandatory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>category</strong></td>
+<td>Array</td>
+<td>An array content categories</td>
+<td>Empty array</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>:</p>
+<pre><code class="yaml">properties:
+    category: [Article, News]
+</code></pre>
+
+<hr />
+<h3 id="indexation">indexation</h3>
+<p>List of references to chained elements or parameters to be indexed on content entity flush.</p>
+<p>Each of the listed elements or parameters can be associated to a callback function.</p>
+<p>A reference to a parameter will be prefixed by <code>@</code>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+<th>Mandatory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>indexation</strong></td>
+<td>Array</td>
+<td>An array of chained elements or parameters</td>
+<td>Empty array</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>:</p>
+<pre><code class="yaml">properties:
+    indexation: [[title-&gt;value, strip_tags], [@isNews]]
+</code></pre>
+
+<hr />
+<h3 id="labelized-by">labelized-by</h3>
+<p>A reference to a chained element that will be used to labelize the content.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+<th>Mandatory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>labelized-by</strong></td>
+<td>String</td>
+<td>A reference to a chained element</td>
+<td>Empty string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>:</p>
+<pre><code class="yaml">properties:
+    labelized-by: title-&gt;value
+</code></pre>
+
+<hr />
+<h3 id="iconized-by">iconized-by</h3>
+<p>A reference to a chained element or parameter that will be used to get an icon for the content.</p>
+<p>The URI of the icon will be resolved according to the <code>routing</code> component rules.</p>
+<p>A reference to a parameter will be prefixed by <code>@</code>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+<th>Mandatory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>iconized-by</strong></td>
+<td>String</td>
+<td>A reference to a chained element or parameter</td>
+<td>Empty string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>:</p>
+<pre><code class="yaml">properties:
+    iconized-by: image-&gt;image-&gt;path
+</code></pre>
+
+<h2 id="parameters-reference">Parameters reference</h2>
 <ul>
 <li>checkbox</li>
 <li>datetimepicker</li>
@@ -561,7 +780,7 @@ $param = $content-&gt;getParamValue('mytext')
 <li>textarea</li>
 </ul>
 <p>All parameters have default options:</p>
-<h4 id="default-options">Default options</h4>
+<h3 id="default-options">Default options</h3>
 <table>
 <thead>
 <tr>
@@ -597,7 +816,7 @@ $param = $content-&gt;getParamValue('mytext')
 </tbody>
 </table>
 <hr />
-<h4 id="checkbox">Checkbox</h4>
+<h3 id="checkbox">Checkbox</h3>
 <p>Like HTML checkbox attribute</p>
 <table>
 <thead>
@@ -649,7 +868,7 @@ $param = $content-&gt;getParamValue('mycheckbox'); // sarray('foo')
 </code></pre>
 
 <hr />
-<h4 id="datetime-picker">Datetime picker</h4>
+<h3 id="datetime-picker">Datetime picker</h3>
 <p>Text element with a datetimepicker</p>
 <table>
 <thead>
@@ -683,7 +902,7 @@ $param = $content-&gt;getParamValue('mydatetimepicker'); // 1435573740
 </code></pre>
 
 <hr />
-<h4 id="hidden">Hidden</h4>
+<h3 id="hidden">Hidden</h3>
 <p>Like HTML hidden attribute</p>
 <table>
 <thead>
@@ -717,7 +936,7 @@ $param = $content-&gt;getParamValue('myhidden'); // foo
 </code></pre>
 
 <hr />
-<h4 id="link-selector">Link selector</h4>
+<h3 id="link-selector">Link selector</h3>
 <p>Link selector allows you to choose a link from one of your website pages or an external link.</p>
 <table>
 <thead>
@@ -736,6 +955,13 @@ $param = $content-&gt;getParamValue('myhidden'); // foo
 <td>Object which contains url / title / pageUid / target</td>
 <td>Empty array</td>
 <td>Yes</td>
+</tr>
+<tr>
+<td><strong>max_entry</strong></td>
+<td>Integer</td>
+<td>Allow to restrict number of link</td>
+<td>null</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -757,7 +983,7 @@ We recommend to retrieve the url from the page entity instead of the url attribu
 <p><strong> External link </strong> :
 In this case, note the pageUid attribute is (obviously) null.</p>
 <hr />
-<h4 id="media-selector">Media selector</h4>
+<h3 id="media-selector">Media selector</h3>
 <p>Media selector allows you to choose a list of media in the media library.</p>
 <table>
 <thead>
@@ -777,6 +1003,13 @@ In this case, note the pageUid attribute is (obviously) null.</p>
 <td>Empty array</td>
 <td>Yes</td>
 </tr>
+<tr>
+<td><strong>max_entry</strong></td>
+<td>Integer</td>
+<td>Allow to restrict number of media</td>
+<td>null</td>
+<td>No</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Example</strong>:</p>
@@ -793,7 +1026,7 @@ $param = $content-&gt;getParamValue('mymediaselector');
 </code></pre>
 
 <hr />
-<h4 id="node-selector">Node selector</h4>
+<h3 id="node-selector">Node selector</h3>
 <p>Node selector allows you to choose a page from tree</p>
 <table>
 <thead>
@@ -813,6 +1046,13 @@ $param = $content-&gt;getParamValue('mymediaselector');
 <td>Empty array</td>
 <td>Yes</td>
 </tr>
+<tr>
+<td><strong>max_entry</strong></td>
+<td>Integer</td>
+<td>Allow to restrict number of node</td>
+<td>null</td>
+<td>No</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Example</strong>:</p>
@@ -829,7 +1069,7 @@ $param = $content-&gt;getParamValue('mynodeselector');
 
 <p>We recommend retrieving the title from the page entity instead of the attributed title because the title can change.</p>
 <hr />
-<h4 id="password">Password</h4>
+<h3 id="password">Password</h3>
 <p>Like HTML password attribute</p>
 <table>
 <thead>
@@ -863,7 +1103,7 @@ $param = $content-&gt;getParamValue('mypassword'); // foo
 </code></pre>
 
 <hr />
-<h4 id="radio">Radio</h4>
+<h3 id="radio">Radio</h3>
 <p>Like HTML radio attribute</p>
 <table>
 <thead>
@@ -915,7 +1155,7 @@ $param = $content-&gt;getParamValue('myradio'); // array('foo')
 </code></pre>
 
 <hr />
-<h4 id="select">Select</h4>
+<h3 id="select">Select</h3>
 <p>Like HTML select attribute</p>
 <table>
 <thead>
@@ -967,7 +1207,7 @@ $param = $content-&gt;getParamValue('myradio'); //array('foo')
 </code></pre>
 
 <hr />
-<h4 id="text">Text</h4>
+<h3 id="text">Text</h3>
 <p>Like HTML text attribute</p>
 <table>
 <thead>
@@ -1001,7 +1241,7 @@ $param = $content-&gt;getParamValue('mypassword'); // foo
 </code></pre>
 
 <hr />
-<h4 id="textarea">Textarea</h4>
+<h3 id="textarea">Textarea</h3>
 <p>Like HTML textearea attribute</p>
 <table>
 <thead>
@@ -1043,8 +1283,8 @@ $param = $content-&gt;getParamValue('mytextearea'); // BackBee
 </code></pre>
 
 <hr />
-<h4 id="special-parameters">Special parameters</h4>
-<h5 id="rendermode">Rendermode</h5>
+<h3 id="special-parameters">Special parameters</h3>
+<h4 id="rendermode">Rendermode</h4>
 <p>Rendermode parameters automatically list rendermodes of content and use them directly.</p>
 <table>
 <thead>

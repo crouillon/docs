@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="http://www.backbee.com/developer-documentation/cookbooks/layout_creation/">
+        <link rel="canonical" href="http://developers.backbee.com/developer-documentation/cookbooks/layout_creation/">
         <link rel="shortcut icon" href="../../../img/favicon.ico">
 
         <title>Layout creation using LayoutBuilderBundle - The BackBee documentation</title>
@@ -64,7 +64,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developer documentation <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -93,7 +93,7 @@
             
             
                 <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbooks <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbook <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -105,7 +105,7 @@
                         </li>
                     
                         <li >
-                            <a href="../create_new_templating_helpers/">Create new templating helpers</a>
+                            <a href="../create-new-templating-helpers/">Create new templating helpers</a>
                         </li>
                     
                         <li >
@@ -171,6 +171,23 @@
                     
                         <li >
                             <a href="../../components/translation/">Translation</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../references/events/">Events</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../references/dependency-injection-container/">Dependency Injection Container</a>
                         </li>
                     
                     </ul>
@@ -275,15 +292,15 @@ columns:
 <h5 id="column-mainzone-setting">Column -&gt; mainZone setting</h5>
 <p>This is to highlight your main column into your layout. MainColumn option permit to BackBee that create a direct link behind the page (and the URL) and the content contained into the main column. Each layout must have one unique main column.</p>
 <h5 id="column-accept-setting">Column -&gt; accept setting</h5>
-<p>This option permit to filter what type you can put into your column. In the case of the LandingPage layout we accept every type of content. But we can filter that and only accept for example an <code>BackBee\ClassContent\Landing\Contentainer</code>:</p>
+<p>This option permit to filter what type you can put into your column. In the case of the LandingPage layout we accept every type of content. But we can filter that and only accept for example an <code>BackBee\ClassContent\Landing\Container</code>:</p>
 <pre><code class="yml">accept: ['Landing\Container']
 </code></pre>
 
 <h5 id="column-maxentry-setting">Column -&gt; maxentry setting</h5>
 <p>That option permit to add a maximum type of accepted content into the page. The default value and 0 is equal to unlimited.</p>
 <h5 id="column-defaultclasscontent-setting">Column -&gt; defaultClassContent setting</h5>
-<p>The default ClassContent setting permit to initialize the layout with the entity provided. Example like <code>accept</code> setting. To initialize the layout with the entity <code>BackBee\ClassContent\Landing\Contentainer</code>, you have to write:</p>
-<pre><code class="yml">defaultClassContent: Landing\Contentainer
+<p>The default ClassContent setting permit to initialize the layout with the entity provided. Example like <code>accept</code> setting. To initialize the layout with the entity <code>BackBee\ClassContent\Landing\Container</code>, you have to write:</p>
+<pre><code class="yml">defaultClassContent: Landing\Container
 </code></pre>
 
 <h5 id="column-inherited-setting">Column -&gt; inherited setting</h5>

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="http://www.backbee.com/developer-documentation/installation/">
+        <link rel="canonical" href="http://developers.backbee.com/developer-documentation/installation/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
 
         <title>Installation - The BackBee documentation</title>
@@ -64,7 +64,7 @@
             
             
                 <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developer documentation <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -93,7 +93,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbooks <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbook <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -105,7 +105,7 @@
                         </li>
                     
                         <li >
-                            <a href="../cookbooks/create_new_templating_helpers/">Create new templating helpers</a>
+                            <a href="../cookbooks/create-new-templating-helpers/">Create new templating helpers</a>
                         </li>
                     
                         <li >
@@ -177,6 +177,23 @@
                 </li>
             
             
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../references/events/">Events</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../references/dependency-injection-container/">Dependency Injection Container</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
             </ul>
 
             <!-- Search, Navigation and Repo links -->
@@ -210,9 +227,15 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#developer-documentation">Developer documentation</a></li>
+        <li class="main active"><a href="#installation">Installation</a></li>
         
-            <li><a href="#installation">Installation</a></li>
+            <li><a href="#download-and-extract">Download and extract</a></li>
+        
+            <li><a href="#web-installer">Web installer</a></li>
+        
+            <li><a href="#category-and-article-fixtures">Category and article fixtures</a></li>
+        
+            <li><a href="#ubuntu-and-phps-sessions">Ubuntu and PHP's sessions</a></li>
         
     
     </ul>
@@ -220,52 +243,70 @@
             <div class="col-md-9" role="main">
                 
 
-<h1 id="developer-documentation">Developer documentation</h1>
-<h2 id="installation">Installation</h2>
-<p>Make sure you have basic knowledge of PHP5, Apache or Nginx and MySQL to install BackBee in developer mode.</p>
-<h3 id="third-party-software">Third party Software</h3>
-<p>First of all, you need to check that your computer has an appropriate working environment for web development. You need at least a web server (Apache, for instance), a database engine (MySQL, PostgreSQL, SQLite, or any PDO-compatible database engine), and <strong>PHP 5.4</strong>.</p>
-<p>You need to install <a href="http://git-scm.com/">git</a> and <a href="https://getcomposer.org/">Composer</a>, the dependency manager for PHP.</p>
-<p>If your are on Linux/Unix based (like ubuntu or Mac OS X), follow this <a href="https://getcomposer.org/doc/00-intro.md#globally">link</a> for installation. Composer is also available on <a href="https://getcomposer.org/doc/00-intro.md#installation-windows">Windows system</a>.</p>
-<p>In a command line interface, check if <code>composer</code> is correctly installed:</p>
-<p><img alt="composer on cmder" src="http://i.imgur.com/xDZi6Sc.png" title="composer" /></p>
-<p>Also, check your PHP version which should be 5.4 or more.</p>
-<p><img alt="PHP on cmder" src="http://i.imgur.com/DkgQJz2.png" title="PHP" /></p>
-<p>Set up a domain name in your operating system.
-On Unix/Linux based OS, you can add it into <code>/etc/hosts</code> file. In our example: <strong>blogbee.dev</strong>:</p>
-<pre><code>127.0.0.1   blogbee.dev
+<h1 id="installation">Installation</h1>
+<p>Make sure you have basic knowledge of PHP5, Apache or Nginx and MySQL to install BackBee.</p>
+<h2 id="download-and-extract">Download and extract</h2>
+<p>This documentation showcases 2 different ways to launch the install.</p>
+<h3 id="install-from-zip-archive">Install from ZIP archive</h3>
+<p>Download the <a href="http://backbee.com/backbee/backbee-latest.zip">zip archive</a> and extract its contents into your webserver at a convenient location - web root folder or subfolder - for example <code>/backbee</code>. </p>
+<p>Then open your browser and navigate to the URL pointing to that specific folder. </p>
+<p>You will be automatically redirected to the install procedure described in the <strong>Web Installer</strong> section. </p>
+<blockquote>
+<p>Need more details on those first steps ? We created a <a href="https://www.youtube.com/watch?v=Xy6lFTmGSaA">video tutorial</a> specifically for WAMP users. </p>
+</blockquote>
+<h3 id="install-with-command-line-recommended">Install with command line (recommended)</h3>
+<p>First, you have to get the project by using Composer.</p>
+<p>Open a command line interface and get BackBee Standard Edition:</p>
+<pre><code>$ composer create-project "backbee/backbee-cms" /path/to/your/folder "~1.2" --no-interaction
 </code></pre>
-<p>You can now launch the installation process.</p>
-<h3 id="web-installer">Web Installer</h3>
-<p>Open a command line interface and get BackBee:</p>
-<pre><code>$ composer create-project "backbee/backbee-standard" /path/to/your/folder "1.0" -n
+<p>From the <code>public</code> directory, launch the builtin server of PHP:</p>
+<pre><code>$ cd /path/to/your/folder/public &amp;&amp; php -S localhost:8000
 </code></pre>
-<p>Then on the <code>public</code> directory, launch the builtin server of PHP:</p>
-<pre><code>$ cd /path/to/your/folder/public &amp;&amp; php -S blogbee.dev:8000
-</code></pre>
-<p>And you should see the first installation step of BackBee (access <a href="http://blogbee.dev:8000/install.php">http://blogbee.dev:8000/install.php</a>) in a web browser:</p>
-<p><img alt="BackBee Installer - first step" src="http://i.imgur.com/saok4nc.png" title="BackBee Installer - first step" /></p>
-<p>You need to create <code>cache</code> and <code>log</code> folders with the correct rights, then you can refresh the page and access to the <strong>second step</strong> of the installer.</p>
+<p>Then browse to the URL <a href="http://localhost:8000/install.php"><code>http://localhost:8000/install.php</code></a> and follow the instructions detailed in the next section.</p>
+<blockquote>
+<p>Detailled steps for command line users are explained in this <a href="https://www.youtube.com/watch?v=Fe6Jg6s_Quw">short video</a>.</p>
+</blockquote>
+<h2 id="web-installer">Web installer</h2>
+<h3 id="step-1-requirements-checks">Step 1 - Requirements checks</h3>
+<p>To see the first installation step of BackBee, go to <a href="http://blogbee.dev:8000/install.php">http://blogbee.dev:8000/install.php</a> with your favorite web browser:</p>
+<p><img alt="BackBee Installer - first step" src="http://i.imgur.com/xWpgPlP.png" title="BackBee Installer - first step" /></p>
+<p>The <code>cache/</code>, <code>log/</code>, <code>repository/Data/</code>, <code>public/</code> and <code>repository/Config</code> folders must be owned by the apache or nginx user. If this user is unknown then set the rights to <code>0777</code>. Refresh and modify your environment until everything is green so you can go to the <strong>second step</strong>.</p>
+<h3 id="step-2-general-application-configuration">Step 2 - General application configuration</h3>
 <p><img alt="BackBee Installer - step 2" src="http://i.imgur.com/pvaDJIH.png" title="BackBee Installer - step 2" /></p>
-<p>If required, check the <code>repository/Config</code> folder rights and then go to the <strong>third</strong> step.</p>
-<p>You need to set your database settings. If you use a different database engine than MySQL or MariaDB, set the correct driver else you have nothing to change, only fill the fields <strong>database name</strong>, <strong>username</strong> and <strong>password</strong>.</p>
+<p>If required, set folder rights to be <code>0777</code> for <code>repository/Config</code> and then go to the <strong>third</strong> step.</p>
+<h3 id="step-3-database-and-super-admin-configurations">Step 3 - Database and super admin configurations</h3>
+<p>BackBee Installer automatically creates and populates the database. The only thing you have to do is to set your database settings. Note that we highly recommend to use MySQL or MariaDB.</p>
 <p><img alt="BackBee Installer - step 3" src="http://i.imgur.com/f6ejuwI.png" title="BackBee Installer - step 3" /></p>
-<p>You also need to define your super admin user, fill the credentials then save and continue to the <strong>fourth</strong> step.</p>
+<p>You also want to define your super admin user, fill the credentials then save and go forward to the <strong>fourth</strong> step.</p>
 <p><img alt="BackBee Installer - step 3 bis" src="http://i.imgur.com/ZENfnSS.png" title="BackBee Installer - step 3 bis" /></p>
-<p>BackBee Installer creates and populates the database, fill the last fields to complete the installation process: the <strong>site_name</strong> and the <strong>domain</strong>.</p>
-<p>You can also check the option "Create demonstration website" if you want to install a complete demonstration based on a press website, see <a href="http://early.backbee.com/">The MAG</a>.</p>
-<p><img alt="BackBee Installer - step 4" src="http://i.imgur.com/BcZ3RNA.png" title="BackBee Installer - step 4" /></p>
-<p>Installation is now completed: BackBee gives you the <code>Apache</code> or <code>Nginx</code> configuration you have to set up to be able to use BackBee on the chosen domain.</p>
+<h3 id="step-4-site-configuration">Step 4 - Site configuration</h3>
+<p>As last step, you have to choose your <strong>site name</strong> and fill its URL.</p>
+<p><img alt="BackBee Installer - step 4" src="http://i.imgur.com/fSlenGX.png" title="BackBee Installer - step 4" /></p>
+<p>At the end of this step, BackBee will create an empty file named <code>INSTALL_OK</code> in the <code>public/</code> folder. As long as this file exists the installation cannot start. So if for any reason you want to re-run the installation process, you have to remove this file first.</p>
+<h3 id="apache2-and-nginx-virtualhosts-configurations">Apache2 and Nginx virtualhosts configurations</h3>
+<p>Installation is now completed. BackBee generates and provides the <code>Apache2</code> or <code>Nginx</code> virtualhost configuration. To get the best experience of BackBee CMS, we recommend you to setup the one that match your environment.</p>
 <p><img alt="BackBee Installer - step 5" src="http://i.imgur.com/T13tVjT.png" title="BackBee Installer - step 5" /></p>
 <p><img alt="BackBee Installer - step 5 bis" src="http://i.imgur.com/ePKuLX5.png" title="BackBee Installer - step 5 bis" /></p>
-<p>When your web server is set up, access the site by going to <strong><a href="http://blogbee.dev">http://blogbee.dev</a></strong>.</p>
+<p>When your web server is set up, you can start using BackBee with the URL <strong><a href="http://blogbee.dev">http://blogbee.dev</a></strong>.</p>
 <p>If everything is correctly installed, you should see the BackBee welcome message:</p>
-<p><img alt="BackBee welcome message" src="http://i.imgur.com/rWY8IQk.png" title="BackBee welcome message" /></p>
+<p><img alt="BackBee welcome message" src="http://i.imgur.com/LIKWK1D.png" title="BackBee welcome message" /></p>
 <blockquote>
 <p><em>If you can't see BackBee welcome message, make sure that <code>cache</code> and <code>log</code> folders have the correct rights. (755 or 777)</em></p>
 </blockquote>
-<p>You can now enter your new backoffice buy pressing  <code>CTRL + ALT + B</code>. Fill the login dialog with the credentials you have set up in the fourth step.</p>
-<p><img alt="BackBee Installed - Edition mode" src="http://i.imgur.com/6NUBWCG.png" title="BackBee Installed - Edition mode" /></p>
+<p>You can switch into edition mode by pressing simultaneously <code>CTRL + ALT + B</code>. The expected credentials are these you setted up at step 4.</p>
+<p><img alt="BackBee Installed - Edition mode" src="http://i.imgur.com/8kxLbfx.png" title="BackBee Installed - Edition mode" /></p>
+<h2 id="category-and-article-fixtures">Category and article fixtures</h2>
+<p>If you want to load some fixtures, you can run this command from your project root directory:</p>
+<pre><code>$ ./backbee fake:data:generate --article-limit 20 --category-limit 5
+</code></pre>
+<p>You can choose the number of articles and categories to generate by respectively changing <code>20</code> and <code>5</code>.</p>
+<h2 id="ubuntu-and-phps-sessions">Ubuntu and PHP's sessions</h2>
+<p>If your operating system is Ubuntu, you might meet the following error while PHP is trying to write its sessions:</p>
+<pre><code>SessionHandler::read(): open(/var/lib/php5/sessions/sess_ne8pqe6qshr0hc6sn9nrmhpfc5, O_RDWR) failed: Permission denied (13) in /var/www/html/bb/vendor/symfony/http-foundation/Symfony/Component/HttpFoundation/Session/Storage/Proxy/SessionHandlerProxy.php on line 69
+</code></pre>
+
+<p>This is due to the user which executes PHP. He has not the right to write in the session's storage folder. You can solve this by using the command <code>chmod</code> or changing the session storage folder.</p>
+<p>You can also take a look at <a href="https://github.com/puphpet/puphpet/issues/1195">puphpet/puphpet#1195</a> to learn more about this issue.</p>
                 <hr />
                 <div class="contribution-message">
     <h2>Is something missing?</h2>

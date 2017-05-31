@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="http://www.backbee.com/developer-documentation/cookbooks/create_new_templating_helpers/">
+        <link rel="canonical" href="http://developers.backbee.com/developer-documentation/references/events/">
         <link rel="shortcut icon" href="../../../img/favicon.ico">
 
-        <title>Create new templating helpers - The BackBee documentation</title>
+        <title>Events - The BackBee documentation</title>
 
         <link href="../../../css/gen.css" rel="stylesheet">
 
@@ -64,7 +64,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developer documentation <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -92,36 +92,36 @@
             
             
             
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbooks <b class="caret"></b></a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbook <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
-                            <a href="../create_bundle_administration/">Create bundle administration</a>
+                            <a href="../../cookbooks/create_bundle_administration/">Create bundle administration</a>
                         </li>
                     
                         <li >
-                            <a href="../create_new_commands/">Create new commands</a>
-                        </li>
-                    
-                        <li class="active">
-                            <a href="./">Create new templating helpers</a>
+                            <a href="../../cookbooks/create_new_commands/">Create new commands</a>
                         </li>
                     
                         <li >
-                            <a href="../customize_error_pages/">Customize error pages</a>
+                            <a href="../../cookbooks/create-new-templating-helpers/">Create new templating helpers</a>
                         </li>
                     
                         <li >
-                            <a href="../ease_debugging_with_profiler/">Ease debugging with the Web Profiler</a>
+                            <a href="../../cookbooks/customize_error_pages/">Customize error pages</a>
                         </li>
                     
                         <li >
-                            <a href="../use_swift_mailer_in_backbee/">Use Swift Mailer in BackBee</a>
+                            <a href="../../cookbooks/ease_debugging_with_profiler/">Ease debugging with the Web Profiler</a>
                         </li>
                     
                         <li >
-                            <a href="../layout_creation/">Layout creation using LayoutBuilderBundle</a>
+                            <a href="../../cookbooks/use_swift_mailer_in_backbee/">Use Swift Mailer in BackBee</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../cookbooks/layout_creation/">Layout creation using LayoutBuilderBundle</a>
                         </li>
                     
                     </ul>
@@ -177,17 +177,34 @@
                 </li>
             
             
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li class="active">
+                            <a href="./">Events</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../dependency-injection-container/">Dependency Injection Container</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
             </ul>
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
                 <li >
-                    <a rel="next" href="../create_new_commands/">
+                    <a rel="next" href="../../components/translation/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../customize_error_pages/">
+                    <a rel="prev" href="../dependency-injection-container/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -210,9 +227,9 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#cookbooks">CookBooks</a></li>
+        <li class="main active"><a href="#events">Events</a></li>
         
-            <li><a href="#create-new-templating-helpers">Create new templating Helpers</a></li>
+            <li><a href="#configuration">Configuration</a></li>
         
     
     </ul>
@@ -220,68 +237,71 @@
             <div class="col-md-9" role="main">
                 
 
-<h1 id="cookbooks">CookBooks</h1>
-<h2 id="create-new-templating-helpers">Create new templating Helpers</h2>
-<p>This cookbook article covers the creation of Renderer helpers using BackBee Standard Edition.</p>
-<p>Templating helpers are PHP classes that extend the <code>final</code> class <code>BackBee\Renderer\AbstractRenderer\AbstractHelper</code>,
-and need to be located in <code>repository/Templates/helpers</code> folder in your BackBee application (or in <code>Templates/helpers</code> folder in bundles).</p>
-<p>As an example, we will create an helper to provide a new <code>bb_dump()</code> function in templates.</p>
-<blockquote>
-<p>You need to create class with the same name as the function you want to create, because <code>__invoke</code> magic function is called.</p>
-</blockquote>
-<pre><code class="php">&lt;?php
-namespace BackBee\Renderer\Helper;
+<h1 id="events">Events</h1>
+<p>Let's explore every option you can use in a <code>events.yml</code> file. Before we start, find below every valid location for your events file:</p>
+<ul>
+<li>In bundle: <code>__BUNDLE_ROOT_DIR__/Config/events.yml</code></li>
+<li>In BackBee core: <code>__BACKBEE_ROOT_DIR__/Config/events.yml</code></li>
+<li>In BackBee Standard Edition: <code>__PROJECT_ROOT_DIR__/repository/Config/events.yml</code></li>
+</ul>
+<p>If you want to load your events in a custom way, you should take a look to <a href="../../../developer-documentation/components/bundle/">the bundle component documentation</a>.</p>
+<h2 id="configuration">Configuration</h2>
+<pre><code class="yaml"># Config/events.yml of backbee/backbee sample
 
-/**
- * @author Mickaël Andrieu &lt;mickael.andrieu@lp-digital.fr&gt;
- */
-class bb_dump extends AbstractHelper
-{
-    /**
-     * Returns dump from template (to ease debug of Class Content rendering)
-     * If Symfony VarDumper is autoaded, use it instead of Doctrine Debug::dump()
-     *
-     * @param  mixin $mixin the variable to dump
-     *
-     * @return string
-     */
-    public function __invoke($mixin)
-    {
-        if (!class_exists('\Symfony\Component\VarDumper\VarDumper')) {
-            return '&lt;pre&gt;' . \Doctrine\Common\Util\Debug::dump($mixin, 2, true, false) . '&lt;/pre&gt;';
-        }else {
-            return dump($mixin);
-        }
-    }
-}
+classcontent.onflush:
+    listeners:
+        - [BackBee\ClassContent\Listener\ClassContentListener, onFlushContent]
+        - [BackBee\ClassContent\Listener\RevisionListener, onFlushContent]
+        - [BackBee\ClassContent\Listener\IndexationListener, onFlushContent]
+        - [@cache.listener, onFlushContent]
+        - [BackBee\Event\Listener\RewritingListener, onFlushContent]
+        - [BackBee\MetaData\Listener\MetaDataListener, onFlushContent, -100]
 </code></pre>
 
-<p>The helper is done and can used directly in all templates.</p>
-<pre><code class="twig">&lt;!-- /repository/Templates/scripts/Home/HomeContainer --&gt;
-&lt;div {{ this.bbcontent(null, {'class': 'container main_containt'})|raw }}&gt;
+<h3 id="event-name-eg-classcontentonflush">Event name (e.g. <code>classcontent.onflush</code>)</h3>
+<p>When you want to register an event listener, the first step is to define which event you want to listen to. In the sample above, we added a listener to the <code>classcontent.onflush</code> event.</p>
+<h3 id="callbacks">Callbacks</h3>
+<p>An event listener callback is a callable array containing at least 2 elements:</p>
+<ul>
+<li>The first argument is a fully-qualified class name (e.g. <code>BackBee\ClassContent\Listener\ClassContentListener</code>)</li>
+<li>The second argument is the method to call (e.g. <code>onFlushContent</code>)</li>
+</ul>
+<p>Note that BackBee does not instantiate the event listener class. It's invoked statically.</p>
+<p>If you need to apply a specific behavior before your event listener is actually handling the event, you can specify a service identifier from the Dependency Injection Container (e.g. <code>@cache.listener</code> - remember to target the service identifier by using the <code>@</code> character).</p>
+<h3 id="priority">Priority</h3>
+<p>You can leverage your event listener's priority using Symfony's Event Dispatcher system, which BackBee extends.</p>
+<ul>
+<li>Event listener's default priority is set to <code>0</code></li>
+<li>The highest your priority, the earliest your event is triggered</li>
+<li>When two events listeners have the same priority, their declaration in the execution pile determine which one is called first</li>
+</ul>
+<h4 id="basic-usage">Basic usage</h4>
+<pre><code class="yaml">random_event.ready:
+    listeners:
+        - [Foo\BarListener, onReady]
+        - [Hello\WorldListener, onReady]
+        - [Open\SourceListener, onReady]
 
-    {% if this.getObject().getParamValue('container_title') != '' %}
-        &lt;div class=&quot;bloc-title-2 triangle-b&quot;&gt;
-          &lt;div class=&quot;border-bx2 border-color color-txt-1&quot;&gt;{{ this.getObject().getParamValue('container_title') }}&lt;/div&gt;
-        &lt;/div&gt;
-    {% endif %}
+# listeners call order on dispatch of random_event.ready:
 
-    {{ this.render(container)|raw }}
-
-    {{ this.bb_dump(this.getObject())|raw }}
-&lt;/div&gt;
+1. Foo\BarListener::onReady
+2. Hello\WorldListener::onReady
+3. Open\SourceListener::onReady
 </code></pre>
 
-<p>or, in phtml:</p>
-<pre><code class="php">&lt;!-- in a pHTML template --&gt;
-&lt;p&gt;
-&lt;?php $this-&gt;bb_dump($this-&gt;getObject()); ?&gt;
-&lt;/p&gt;
-</code></pre>
+<h4 id="usage-with-priority">Usage with priority</h4>
+<pre><code class="yaml">random_event.ready:
+    listeners:
+        - [Foo\BarListener, onReady, -100]
+        - [Hello\WorldListener, onReady]
+        - [Open\SourceListener, onReady, 100]
 
-<p>Will produce, with the <code>[Symfony VarDumper](http://symfony.com/doc/current/components/var_dumper/introduction.html)</code> added as dependency of project,
-this output:</p>
-<p><img alt="The new dump() helper" src="http://i.imgur.com/GjG4uwp.png" /></p>
+# listeners call order on dispatch of random_event.ready:
+
+1. Open\SourceListener::onReady
+2. Hello\WorldListener::onReady
+3. Foo\BarListener::onReady
+</code></pre>
                 <hr />
                 <div class="contribution-message">
     <h2>Is something missing?</h2>

@@ -6,15 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="http://www.backbee.com/developper-documentation/cookbooks/create_new_commands/">
+        <link rel="canonical" href="http://developers.backbee.com/developer-documentation/cookbooks/create-new-templating-helpers/">
         <link rel="shortcut icon" href="../../../img/favicon.ico">
 
-	<title>Create new commands - The BackBee documentation</title>
+        <title>Create new templating helpers - The BackBee documentation</title>
 
-        <link href="../../../css/bootstrap-3.0.3.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../../css/highlight.css">
-        <link href="../../../css/base.css" rel="stylesheet">
+        <link href="../../../css/gen.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -51,7 +48,7 @@
             </button>
 
             <!-- Main title -->
-            <a class="navbar-brand" href="../../..">The BackBee documentation</a>
+            <a class="navbar-brand" href="../../.."><img src="../../../img/logo-bb-docs.png" alt="The BackBee documentation" title="The BackBee documentation" height="28" style="vertical-align:bottom;" /> <b>Documentation</b></a>
         </div>
 
         <!-- Expanded navigation -->
@@ -67,7 +64,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developper documentation <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
@@ -96,19 +93,19 @@
             
             
                 <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbooks <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cookbook <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         <li >
                             <a href="../create_bundle_administration/">Create bundle administration</a>
                         </li>
                     
-                        <li class="active">
-                            <a href="./">Create new commands</a>
+                        <li >
+                            <a href="../create_new_commands/">Create new commands</a>
                         </li>
                     
-                        <li >
-                            <a href="../create_new_templating_helpers/">Create new templating helpers</a>
+                        <li class="active">
+                            <a href="./">Create new templating helpers</a>
                         </li>
                     
                         <li >
@@ -180,17 +177,34 @@
                 </li>
             
             
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../references/events/">Events</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../references/dependency-injection-container/">Dependency Injection Container</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
             </ul>
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
                 <li >
-                    <a rel="next" href="../create_bundle_administration/">
+                    <a rel="next" href="../create_new_commands/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../create_new_templating_helpers/">
+                    <a rel="prev" href="../customize_error_pages/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -209,97 +223,115 @@
     </div>
 </div>
 
-        <div class="container">
+        <div class="container" id="main-container">
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#cookbooks">CookBooks</a></li>
+        <li class="main active"><a href="#create-new-templating-helpers">Create new templating helpers</a></li>
         
-            <li><a href="#create-new-commands">Create new commands</a></li>
+            <li><a href="#usage">Usage</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
+                
 
-<h1 id="cookbooks">CookBooks</h1>
-<h2 id="create-new-commands">Create new commands</h2>
-<p>The Console page of the Components section covers how to create a console application.
-This cookbook article covers the creation of a command using BackBee Standard Edition.</p>
-<h3 id="automatically-registering-commands">Automatically Registering Commands</h3>
-<p>To make the console commands available automatically with BackBee, create a
-<code>Command</code> directory inside your bundle and create a PHP file suffixed with
-<code>Command.php</code> for each command that you want to provide. For example, if you
-want to extend the DemoBundle to welcome you from the command line, create
-<code>WelcomeCommand.php</code> and add the following to it:</p>
-<pre><code class="php">// bundle/WelcomeBundle/Command/WelcomeCommand.php
-namespace WelcomeBundle\Command;
+<h1 id="create-new-templating-helpers">Create new templating helpers</h1>
+<p>This recipe will deal about <code>Renderer</code> helpers. A helper must always return a string. For example, you should use them when you have to generate a string depending on objects and/or resources that are not accessible from views.</p>
+<p>To write your own helper, the PHP class must extend <code>BackBee\Renderer\Helper\AbstractHelper</code> and  contain the <code>__invoke()</code> method. By doing it this way, your helper name is the class name. You don't need to worry about how to autoload it as long as it's located in <code>repository/Templates/helpers</code> or in <code>Templates/helpers</code> of bundles.</p>
+<h2 id="usage">Usage</h2>
+<p>Let's create a helper <code>sayHello</code> that says 'Good morning you!', 'Good afternoon you!' or 'Good evening you!' depending on current time. If the user is logged in 'you' will be replaced by user's first name.</p>
+<p>Let's write the PHP class (<code>repository/Templates/helpers/sayHello.php</code>):</p>
+<pre><code class="php">&lt;?php
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
+namespace BackBee\Renderer\Helper;
 
-
-use BackBee\Console\AbstractCommand;
-
-class WelcomeCommand extends AbstractCommand
+/**
+ * @author Eric Chau &lt;eric.chau@lp-digital.fr&gt;
+ */
+class sayHello extends AbstractHelper
 {
-    protected function configure()
+    const MORNING_MARK = 12;
+    const AFTERNOON_MARK = 20;
+
+    /**
+     * Returns hello message depending on current time and if the user is connected.
+     *
+     * @return string
+     */
+    public function __invoke()
     {
-        $this
-            -&gt;setName('demo:welcome')
-            -&gt;setDescription('Welcome someone')
-            -&gt;addArgument(
-                'name',
-                InputArgument::OPTIONAL,
-                'Who do you want to welcome?'
-            )
-            -&gt;addOption(
-                'yell',
-                null,
-                InputOption::VALUE_NONE,
-                'If set, the message will yell in uppercase letters'
-            )
-            -&gt;setHelp(&lt;&lt;&lt;EOF
-The &lt;info&gt;%command.name%&lt;/info&gt; command can welcome someone.
-With the option ``yell``, the message will be displayed in uppercase letters.
-EOF;
-            )
-        ;
-    }
-
-    protected function execute(InputInterface $input, OutputInterface $output)
-    { 
-        $text = 'Welcome '.$input-&gt;getArgument('name');
-
-        if ($input-&gt;getOption('yell')) {
-            $text = strtoupper($text);
+        $name = 'you';
+        $token = $this-&gt;_renderer-&gt;getApplication()-&gt;getBBUserToken();
+        if (null !== $token) { // if $token is not null, the user is authenticated
+            $name = $token-&gt;getUser()-&gt;getFirstname();
         }
 
-        $output-&gt;writeln($text);
+        $momentLabel = 'evening';
+        $hour = date('H');
+        if (self::MORNING_MARK &gt; $hour) {
+            $momentLabel = 'morning';
+        } elseif (self::AFTERNOON_MARK &gt; $hour) {
+            $momentLabel = 'afternoon';
+        }
+
+        return &quot;Good {$momentLabel} {$name}!&quot;;
     }
 }
 </code></pre>
 
-<p>This command will now automatically be available to run:</p>
-<pre><code class="bash">    $ ./backbee demo:welcome Charles
-</code></pre></div>
+<p>Here's how you can use <code>sayHello</code> helper in a template below:</p>
+<pre><code class="twig"># repository/Templates/scripts/random_view.html.twig
+&lt;h2&gt;{{this.sayHello()}}&lt;/h2&gt;
+</code></pre>
+
+<p>Assuming that it's currently 8:00 am and you are logged in using account with Eric as first name, the result will be:</p>
+<pre><code>&lt;h2&gt;Good morning Eric!&lt;/h2&gt;
+</code></pre>
+
+<p>And if it's 9:00 pm and you are not connected:</p>
+<pre><code>&lt;h2&gt;Good evening you!&lt;/h2&gt;
+</code></pre>
+
+<p>Well, this recipe is over. You should now be able to create by yourself your helpers to do some amazing things!</p>
+                <hr />
+                <div class="contribution-message">
+    <h2>Is something missing?</h2>
+    <p>If you notice something we've missed or could be improved on, please follow <a href="https://github.com/backbee/docs/blob/master/README.md" target="_blank">this link</a> and submit a pull request to the BackBee documentation repository. Once we merge it, the changes will be immediately reflected on the website.</p>
+</div>
+            </div>
         </div>
 
-	<footer class="col-md-12">
-		<hr>
-		
-		<center>Copyright &copy; 2014-2015, <a href="http://www.backbee.com">BackBee project</a>.</center>
-		
-		<center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
-	</footer>
+    <footer>
+        <hr>
+        <p>Copyright &copy; 2014-2015, <a href="http://www.backbee.com">BackBee project</a>.</p>
+        <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+
+        <div class="footer-copyright">
+            <div class="container">
+                <ul class="row nav">
+                    <li class="col-sm-6 col-xs-4"><a href=" http://www.lp-digital.fr/en/index.php" target="_blank"><img src="http://backbee.com/img/logo-lpdigital-bw.png" alt="Lp digital"></a></li>
+                    <li class="col-sm-6 col-xs-8 text-align-right"><a href=" http://www.lp-digital.fr/en/solutions.php" target="_blank" class="btn btn-dimmed btn-sm">Our other solutions</a><!-- SocialTools -->
+                        <div class="social-tool-wrapper">
+                            <ul class="nav">
+                                <li><a href="https://www.facebook.com/backbeeCMS" target="_blank"><i class="fa fa-facebook"></i><span class="visuallyhidden">Facebook</span></a></li>
+                                <li><a href="https://twitter.com/Lpdigitalsystem" target="_blank"><i class="fa fa-twitter"></i><span class="visuallyhidden">Twitter</span></a></li>
+                                <li><a href="https://plus.google.com/101416676508957143369/posts" target="_blank"><i class="fa fa-google-plus"></i><span class="visuallyhidden">Google +</span></a></li>
+                                <li><a href="http://backbee.com/services/contact-us"><i class="fa fa-envelope"></i><span class="visuallyhidden">Contact Us</span></a></li>
+                            </ul>
+                        </div>
+                        <!-- End SocialTools -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 
 
         <script src="../../../js/jquery-1.10.2.min.js"></script>
         <script src="../../../js/bootstrap-3.0.3.min.js"></script>
         <script src="../../../js/highlight.pack.js"></script>
         <script src="../../../js/base.js"></script>
-        <script src="../../../js/backbee.js"></script>
     </body>
 </html>
