@@ -1,5 +1,5 @@
 site_name: The BackBee documentation
-site_url: http://www.backbee.com/
+site_url: http://developers.backbee.com/
 site_description: The BackBee documentation
 
 repo_url: https://github.com/backbee/docs
@@ -38,5 +38,5 @@ pages:
         - 'Events': 'developer-documentation/references/events.md'
         - 'Dependency Injection Container': 'developer-documentation/references/dependency-injection-container.md'
 
-copyright: Copyright &copy; 2014-2015, <a href="http://www.backbee.com">BackBee project</a>.
+copyright: Copyright &copy; 2014-2015, <a href="http://developers.backbee.com">BackBee project</a>.
 google_analytics: ['UA-3459992-27', 'docs.backbee.com']

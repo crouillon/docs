@@ -38,7 +38,7 @@ Then browse to the URL [`http://localhost:8000/install.php`](http://localhost:80
 
 To see the first installation step of BackBee, go to [http://blogbee.dev:8000/install.php](http://blogbee.dev:8000/install.php) with your favorite web browser:
 
-![BackBee Installer - first step](http://i.imgur.com/YCxW3ei.png "BackBee Installer - first step")
+![BackBee Installer - first step](http://i.imgur.com/xWpgPlP.png "BackBee Installer - first step")
 
 The `cache/`, `log/`, `repository/Data/`, `public/` and `repository/Config` folders must be owned by the apache or nginx user. If this user is unknown then set the rights to `0777`. Refresh and modify your environment until everything is green so you can go to the **second step**.
 

@@ -15,7 +15,7 @@ Because BackBee CMS is built on top of Symfony components, these elements are re
 * ``mbstring`` needs to be enabled
 * Your PHP configuration needs to have the date.timezone setting defined
 
-The minimum version of PHP must be: **PHP 5.4.0**.
+The minimum version of PHP must be: **PHP 5.6.0**.
 
 ### Optional
 
